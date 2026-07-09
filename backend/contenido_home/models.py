@@ -40,3 +40,31 @@ class ContenidoHome(models.Model):
 
     def __str__(self):
         return f"{self.get_tipo_display()} - {self.titulo or self.autor_nombre or self.id}"
+    
+
+class Pregunta(models.Model):
+    pregunta = models.CharField(max_length=250)
+    respuesta = models.TextField()
+    orden = models.PositiveIntegerField(default=0)
+    activo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['orden']
+        verbose_name = "Pregunta frecuente"
+        verbose_name_plural = "Preguntas frecuentes"
+
+    def __str__(self):
+        return self.pregunta
+
+
+class QuienesSomos(models.Model):
+    titulo = models.CharField(max_length=150, default="Quienes somos")
+    contenido = models.TextField()
+    imagen = models.ImageField(upload_to='nosotros/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Quienes somos"
+        verbose_name_plural = "Quienes somos"
+
+    def __str__(self):
+        return self.titulo

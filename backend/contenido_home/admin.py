@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import ContenidoHome
+from .models import Pregunta, QuienesSomos
 
 
 @admin.register(ContenidoHome)
@@ -25,3 +26,13 @@ class ContenidoHomeAdmin(admin.ModelAdmin):
             'description': 'Usar solo si el tipo es "Video de TikTok"'
         }),
     )
+
+@admin.register(Pregunta)
+class PreguntaAdmin(admin.ModelAdmin):
+    list_display = ('pregunta', 'orden', 'activo')
+    ordering = ('orden',)
+
+
+@admin.register(QuienesSomos)
+class QuienesSomosAdmin(admin.ModelAdmin):
+    list_display = ('titulo',)
