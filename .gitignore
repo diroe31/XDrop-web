@@ -1,0 +1,30 @@
+# --- Variables de entorno y secretos ---
+.env
+.env.local
+.env.*.local
+
+# --- Python / Django ---
+__pycache__/
+*.pyc
+venv/
+env/
+*.sqlite3
+media/
+staticfiles/
+db.sqlite3
+
+# --- Node / React / Next.js ---
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# --- Bases de datos locales ---
+base_datos/*.dump
+base_datos/backups/
+
+# --- Sistema ---
+.DS_Store
+Thumbs.db
+*.log

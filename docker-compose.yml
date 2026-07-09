@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: xdrop_db
+    restart: always
+    environment:
+      POSTGRES_DB: xdrop
+      POSTGRES_USER: xdrop_user
+      POSTGRES_PASSWORD: xdrop_pass_local   # solo para desarrollo local, no producción
+    ports:
+      - "5432:5432"
+    volumes:
+      - xdrop_pgdata:/var/lib/postgresql/data
+      - ./base_datos/seed.sql:/docker-entrypoint-initdb.d/seed.sql   # carga datos de ejemplo al iniciar
+
+volumes:
+  xdrop_pgdata:
