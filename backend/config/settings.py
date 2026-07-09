@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -115,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -128,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -140,3 +142,27 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",   # donde correrá tu frontend Next.js
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "XDrop Admin",
+    "site_header": "XDrop",
+    "site_brand": "XDrop",
+    "site_logo": "img/logo.png",
+    "login_logo": "img/logo.png",
+    "site_logo_classes": "img-circle",
+    "welcome_sign": "Bienvenida a XDrop",
+    "copyright": "XDrop",
+    "custom_css": "css/admin_custom.css",
+    "topmenu_links": [
+        {"name": "Ver sitio", "url": "/", "new_window": True},
+    ],
+    "order_with_respect_to": ["productos", "clientes", "pedidos", "contenido_home"],
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "default",
+    "navbar": "navbar-white navbar-light",
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "brand_small_text": False,
+}

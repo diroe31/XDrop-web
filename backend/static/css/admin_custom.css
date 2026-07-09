@@ -1,0 +1,22 @@
+/* Logo en el menu lateral */
+.main-header .brand-image,
+.login-logo img,
+img.brand-image {
+    max-height: 40px !important;
+    width: auto !important;
+    object-fit: contain;
+}
+
+/* Logo en la pantalla de login */
+.login-box .login-logo img,
+.login-page img {
+    max-height: 90px !important;
+    width: auto !important;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.login-box {
+    background-color: #111111;
+    border-radius: 8px;
+}
