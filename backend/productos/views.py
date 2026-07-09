@@ -18,3 +18,4 @@ class ProductoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Producto.objects.filter(activo=True)
     serializer_class = ProductoSerializer
     lookup_field = 'slug'
+    filterset_fields = ['categoria', 'categoria__coleccion']

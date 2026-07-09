@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'clientes',
     'pedidos',
     'contenido_home',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -165,4 +166,10 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar": "sidebar-dark-primary",
     "sidebar_nav_small_text": False,
     "brand_small_text": False,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 12,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
