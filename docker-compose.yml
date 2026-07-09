@@ -13,7 +13,8 @@ services:
       - "5432:5432"
     volumes:
       - xdrop_pgdata:/var/lib/postgresql/data
-      - ./base_datos/seed.sql:/docker-entrypoint-initdb.d/seed.sql   # carga datos de ejemplo al iniciar
+      - ./base_datos/schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      - ./base_datos/seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
 
 volumes:
   xdrop_pgdata:
