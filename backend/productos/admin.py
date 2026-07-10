@@ -30,8 +30,8 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('miniatura', 'nombre', 'categoria', 'precio', 'stock', 'activo')
-    list_filter = ('categoria__coleccion', 'categoria', 'activo')
+    list_display = ('miniatura', 'nombre', 'categoria', 'precio', 'stock', 'destacado', 'activo')
+    list_filter = ('categoria__coleccion', 'categoria', 'destacado', 'activo')
     prepopulated_fields = {'slug': ('nombre',)}
     inlines = [ProductoImagenInline]
 
