@@ -40,7 +40,7 @@ export default function Navbar() {
               alt="XDrop"
               width={170}
               height={55}
-              className="h-29 w-auto"
+              className="h-9 w-auto"
             />
           </Link>
 

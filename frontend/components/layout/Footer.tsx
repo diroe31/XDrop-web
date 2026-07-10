@@ -46,7 +46,7 @@ export default function Footer() {
               alt="XDrop"
               width={170}
               height={55}
-              className="h-30 w-auto mb-4"
+              className="h-15 w-auto mb-4"
             />
             <p
               className="font-inter text-xs leading-relaxed max-w-xs mb-5"
