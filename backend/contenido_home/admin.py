@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import ContenidoHome
-from .models import Pregunta, QuienesSomos
+from .models import ContenidoHome, Pregunta, QuienesSomos
 
 
 @admin.register(ContenidoHome)
@@ -13,9 +12,13 @@ class ContenidoHomeAdmin(admin.ModelAdmin):
         ('General', {
             'fields': ('tipo', 'orden', 'activo')
         }),
-        ('Banner', {
+        ('Banner / Galería', {
             'fields': ('titulo', 'subtitulo', 'texto', 'imagen', 'texto_boton', 'url_boton'),
-            'description': 'Usar solo si el tipo es "Banner principal"'
+            'description': (
+                'Titulo e Imagen se usan tanto para "Banner principal" como para '
+                '"Imagen de galeria". Los demas campos (subtitulo, texto, texto boton, '
+                'url boton) solo aplican al tipo Banner.'
+            )
         }),
         ('Comentario', {
             'fields': ('autor_nombre', 'autor_ubicacion', 'calificacion', 'etiqueta_producto'),
@@ -26,6 +29,7 @@ class ContenidoHomeAdmin(admin.ModelAdmin):
             'description': 'Usar solo si el tipo es "Video de TikTok"'
         }),
     )
+
 
 @admin.register(Pregunta)
 class PreguntaAdmin(admin.ModelAdmin):
