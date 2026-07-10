@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "XDrop | Tienda de Coleccionables",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
