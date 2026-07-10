@@ -179,3 +179,24 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
+INSTALLED_APPS += ['storages']
+
+AWS_ACCESS_KEY_ID = config('SUPABASE_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('SUPABASE_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('SUPABASE_STORAGE_BUCKET')
+AWS_S3_ENDPOINT_URL = config('SUPABASE_STORAGE_ENDPOINT')
+AWS_S3_REGION_NAME = config('SUPABASE_STORAGE_REGION')
+AWS_S3_ADDRESSING_STYLE = 'path'
+AWS_S3_CUSTOM_DOMAIN = f"{config('SUPABASE_PROJECT_ID')}.supabase.co/storage/v1/object/public/{config('SUPABASE_STORAGE_BUCKET')}"
+AWS_DEFAULT_ACL = 'public-read'
+AWS_QUERYSTRING_AUTH = False
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
