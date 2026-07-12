@@ -110,11 +110,12 @@ async function apiGet<T>(path: string): Promise<T> {
 }
 
 // ---------- Productos / Colecciones / Categorias ----------
-export function fetchProductos(params?: { coleccionId?: number; categoriaId?: number; destacado?: boolean }) {
+export function fetchProductos(params?: { coleccionId?: number; categoriaId?: number; destacado?: boolean; page?: number }) {
   const query = new URLSearchParams();
   if (params?.coleccionId) query.set("categoria__coleccion", String(params.coleccionId));
   if (params?.categoriaId) query.set("categoria", String(params.categoriaId));
   if (params?.destacado) query.set("destacado", "true");
+  if (params?.page) query.set("page", String(params.page));
   const qs = query.toString() ? `?${query.toString()}` : "";
   return apiGet<Paginado<Producto>>(`/productos/${qs}`);
 }
