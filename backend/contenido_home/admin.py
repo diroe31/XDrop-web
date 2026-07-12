@@ -10,22 +10,27 @@ class ContenidoHomeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('General', {
-            'fields': ('tipo', 'orden', 'activo')
+            'fields': ('tipo', 'orden', 'activo', 'texto'),
+            'description': (
+                'El campo "Texto" se usa para: el comentario/resena completo '
+                '(si el tipo es Comentario), o un texto libre opcional '
+                '(si el tipo es Banner).'
+            )
         }),
         ('Banner / Galería', {
-            'fields': ('titulo', 'subtitulo', 'texto', 'imagen', 'texto_boton', 'url_boton'),
+            'fields': ('titulo', 'subtitulo', 'imagen', 'texto_boton', 'url_boton'),
             'description': (
                 'Titulo e Imagen se usan tanto para "Banner principal" como para '
-                '"Imagen de galeria". Los demas campos (subtitulo, texto, texto boton, '
-                'url boton) solo aplican al tipo Banner.'
+                '"Imagen de galeria". Subtitulo, texto boton y url boton solo '
+                'aplican al tipo Banner.'
             )
         }),
         ('Comentario', {
             'fields': ('autor_nombre', 'autor_ubicacion', 'calificacion', 'etiqueta_producto'),
-            'description': 'Usar solo si el tipo es "Comentario / Resena"'
+            'description': 'Usar solo si el tipo es "Comentario / Resena". El texto del comentario va arriba, en la seccion General.'
         }),
         ('Video TikTok', {
-            'fields': ('url_video', 'likes', 'reproducciones'),
+            'fields': ('url_video', 'video_preview', 'likes', 'reproducciones'),
             'description': 'Usar solo si el tipo es "Video de TikTok"'
         }),
     )

@@ -55,7 +55,7 @@ function TarjetaChica({ c }: { c: Coleccion }) {
   return (
     <Link
       href={`/catalogo/${c.slug}`}
-      className="relative rounded-2xl overflow-hidden group"
+      className="relative rounded-2xl overflow-hidden group block w-full h-full"
       style={{ border: "1px solid rgba(0,0,0,.07)" }}
     >
       {c.imagen_portada ? (

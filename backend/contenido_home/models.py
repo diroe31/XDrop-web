@@ -27,10 +27,11 @@ class ContenidoHome(models.Model):
     calificacion = models.PositiveSmallIntegerField(default=5)      # 1 a 5 estrellas
     etiqueta_producto = models.CharField(max_length=100, blank=True)  # Ej: "Street Fighter"
 
-    # Solo para videos de TikTok
+# Solo para videos de TikTok
     url_video = models.URLField(blank=True)
-    likes = models.CharField(max_length=20, blank=True)             # Ej: "14.2K" (texto, no numero exacto)
-    reproducciones = models.CharField(max_length=20, blank=True)    # Ej: "384"
+    video_preview = models.FileField(upload_to='home_videos/', blank=True, null=True)
+    likes = models.CharField(max_length=20, blank=True)
+    reproducciones = models.CharField(max_length=20, blank=True)
 
     orden = models.PositiveIntegerField(default=0)
     activo = models.BooleanField(default=True)
