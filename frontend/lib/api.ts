@@ -159,3 +159,19 @@ export async function crearPedido(datos: DatosPedido): Promise<RespuestaPedido> 
   }
   return res.json();
 }
+
+// ---------- Miniatura oficial de TikTok (sin gastar almacenamiento propio) ----------
+export async function fetchTikTokThumbnail(urlVideo: string): Promise<string | null> {
+  if (!urlVideo) return null;
+  try {
+    const res = await fetch(
+      `https://www.tiktok.com/oembed?url=${encodeURIComponent(urlVideo)}`,
+      { next: { revalidate: 3600 } } // se recuerda 1 hora, no se pide cada vez
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.thumbnail_url || null;
+  } catch {
+    return null;
+  }
+}
