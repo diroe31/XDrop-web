@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Menu, X } from "lucide-react";
 
+const ACCENT = "#c8973a";
+
 const NAV = [
   { href: "/", label: "Inicio" },
   { href: "/catalogo", label: "Catálogo" },
@@ -33,32 +35,32 @@ export default function Navbar() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5">
             <Image
               src="/logo.png"
               alt="XDrop"
               width={170}
               height={55}
-              className="h-9 w-auto"
+              className="h-11 w-auto"
             />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {NAV.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="font-rajdhani text-xs font-semibold tracking-[.2em] uppercase pb-0.5 transition-colors relative"
                 style={{
-                  color: isActive(link.href) ? "#f0efe9" : "rgba(240,239,233,.45)",
+                  color: isActive(link.href) ? ACCENT : "rgba(240,239,233,.45)",
                 }}
               >
                 {link.label}
                 {isActive(link.href) && (
                   <span
                     className="absolute -bottom-0.5 left-0 right-0 h-px"
-                    style={{ background: "#f0efe9" }}
+                    style={{ background: ACCENT }}
                   />
                 )}
               </Link>
@@ -78,7 +80,7 @@ export default function Navbar() {
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
                     className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full font-orbitron text-[10px] font-black flex items-center justify-center"
-                    style={{ background: "#f0efe9", color: "#111111" }}
+                    style={{ background: ACCENT, color: "#111111" }}
                   >
                     {cartCount}
                   </motion.span>
@@ -117,7 +119,7 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className="font-rajdhani font-bold text-base tracking-[.18em] uppercase text-left"
                   style={{
-                    color: isActive(link.href) ? "#f0efe9" : "rgba(240,239,233,.45)",
+                    color: isActive(link.href) ? ACCENT : "rgba(240,239,233,.45)",
                   }}
                 >
                   {link.label}
