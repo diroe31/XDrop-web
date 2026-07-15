@@ -30,7 +30,7 @@ export default function HeroCarousel({ slides }: { slides: Slide[] }) {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ height: "92vh", minHeight: 560, background: "#0e1014" }}
+      style={{ height: "92vh", minHeight: 560, background: "#0e1014", marginTop: "-4rem" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
