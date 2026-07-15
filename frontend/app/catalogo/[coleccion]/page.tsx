@@ -13,7 +13,7 @@ export default async function CatalogoColeccionPage({
   return (
     <div className="min-h-screen" style={{ background: "#f5f4f0" }}>
       {/* Banner de la coleccion */}
-      <div className="relative w-full overflow-hidden" style={{ height: 320, background: "#111" }}>
+      <div className="relative w-full overflow-hidden" style={{ height: 160, background: "#111" }}>
         {data.imagen_portada && (
           <Image
             src={data.imagen_portada}
@@ -21,22 +21,18 @@ export default async function CatalogoColeccionPage({
             fill
             sizes="100vw"
             className="object-cover"
-            style={{ opacity: 0.55 }}
+            style={{ opacity: 0.4 }}
           />
         )}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(105deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 55%,rgba(0,0,0,.1) 100%)",
+              "linear-gradient(105deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.2) 100%)",
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to top,rgba(14,16,20,1) 0%,transparent 45%)" }}
-        />
-        <div className="absolute inset-0 flex flex-col justify-end pb-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex items-center gap-3 mb-2">
+        <div className="absolute inset-0 flex flex-col justify-center max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center gap-3 mb-1.5">
             <div className="w-6 h-0.5 rounded-full" style={{ background: "#c8973a" }} />
             <span
               className="font-space-mono text-[10px] tracking-[.3em] uppercase"
@@ -47,7 +43,7 @@ export default async function CatalogoColeccionPage({
           </div>
           <h1
             className="font-orbitron font-black text-white leading-none"
-            style={{ fontSize: "clamp(2rem,5vw,4rem)" }}
+            style={{ fontSize: "clamp(1.6rem,3.5vw,2.6rem)" }}
           >
             {data.nombre.toUpperCase()}
           </h1>

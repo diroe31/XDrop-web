@@ -14,7 +14,7 @@ export default async function Galeria() {
   if (items.length === 0) {
     return (
       <section className="py-20" style={{ background: "#111111" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <p className="font-inter text-sm opacity-50 text-center text-white">
             Sube imagenes de tipo &quot;Galeria&quot; desde el admin para verlas aqui.
           </p>
@@ -29,7 +29,7 @@ export default async function Galeria() {
 
   return (
     <section className="py-20 overflow-hidden" style={{ background: "#111111" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <div className="flex items-end justify-between">
           <div>
             <p
@@ -52,7 +52,7 @@ export default async function Galeria() {
 
       {items.length >= 4 ? (
         <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8"
           style={{
             display: "grid",
             gridTemplateColumns: "1.2fr 0.8fr 1fr",
@@ -144,7 +144,7 @@ export default async function Galeria() {
           </Link>
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-3 gap-2">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-3 gap-2">
           {items.map((item) => (
             <div key={item.id} className="relative aspect-square rounded-2xl overflow-hidden">
               {item.imagen && (

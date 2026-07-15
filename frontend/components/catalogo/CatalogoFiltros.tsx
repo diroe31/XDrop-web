@@ -35,13 +35,13 @@ export default function CatalogoFiltros({
     <div>
       {/* Barra de filtros (chips), pegajosa al hacer scroll */}
       <div
-        className="sticky top-14 z-30 py-4"
+        className="sticky top-16 z-30 py-4"
         style={{ background: "#f5f4f0", borderBottom: "1px solid rgba(0,0,0,.06)" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-2">
           <button
             onClick={() => setCategoriaActiva(null)}
-            className="flex-shrink-0 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
+            className="px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
             style={{
               background: categoriaActiva === null ? "#111111" : "#ffffff",
               color: categoriaActiva === null ? "#fff" : "#111111",
@@ -54,7 +54,7 @@ export default function CatalogoFiltros({
             <button
               key={cat.id}
               onClick={() => setCategoriaActiva(cat.id)}
-              className="flex-shrink-0 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
+              className="px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
               style={{
                 background: categoriaActiva === cat.id ? "#111111" : "#ffffff",
                 color: categoriaActiva === cat.id ? "#fff" : "#111111",
@@ -68,7 +68,7 @@ export default function CatalogoFiltros({
       </div>
 
       {/* Grid de productos */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {!cargando && (
           <p className="font-space-mono text-xs uppercase tracking-widest mb-6" style={{ color: "#999" }}>
             {total} producto{total !== 1 ? "s" : ""}
@@ -87,7 +87,7 @@ export default function CatalogoFiltros({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {productos.map((p) => (
               <ProductoCard key={p.id} producto={p} />
             ))}
