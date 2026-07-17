@@ -79,8 +79,13 @@ export default function HeroCarousel({ slides }: { slides: Slide[] }) {
               </p>
             )}
             <h1
-              className="font-orbitron font-black leading-none mb-7"
-              style={{ fontSize: "clamp(3rem,8vw,6.5rem)", color: "#ffffff" }}
+className="leading-none mb-7 uppercase"
+              style={{
+                fontSize: "clamp(3rem,8vw,6.5rem)",
+                color: "#ffffff",
+                fontFamily: "'Roboto Mono', monospace",
+                fontWeight: 700,
+              }}
             >
               {cur.titleLines.map((line, li) => (
                 <span

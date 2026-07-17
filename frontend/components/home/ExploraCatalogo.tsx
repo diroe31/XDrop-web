@@ -95,7 +95,10 @@ export default async function ExploraCatalogo() {
               </div>
 
               <div className="flex flex-col items-center text-center gap-1.5 pt-4 pb-2">
-                <p className="font-rajdhani font-bold text-base leading-snug text-white">
+                <p
+                  className="leading-snug text-white text-base"
+                  style={{ fontFamily: "'Raleway', sans-serif", fontWeight: 700 }}
+                >
                   {producto.nombre}
                 </p>
                 <p className="font-orbitron font-bold text-xl" style={{ color: ACCENT }}>
