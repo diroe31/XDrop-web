@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ChevronRight, Shield, Truck, RefreshCw, Award } from "lucide-react";
 import { fetchProductoPorSlug } from "@/lib/api";
 import ProductoGaleria from "@/components/producto/ProductoGaleria";
+import BotonAgregarCarrito from "@/components/producto/BotonAgregarCarrito";
 
 const ACCENT = "#c8973a";
 
@@ -24,7 +25,6 @@ export default async function ProductoPage({
   return (
     <div className="min-h-screen" style={{ background: "#f5f4f0" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 mb-8 font-space-mono text-[11px] uppercase tracking-wider" style={{ color: "#999" }}>
           <Link href="/catalogo" className="hover:underline">Catálogo</Link>
           <ChevronRight size={11} />
@@ -34,10 +34,8 @@ export default async function ProductoPage({
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Galeria */}
           <ProductoGaleria imagenes={producto.imagenes} nombre={producto.nombre} />
 
-          {/* Info del producto */}
           <div>
             <p
               className="font-space-mono text-xs uppercase tracking-widest mb-2"
@@ -79,20 +77,8 @@ export default async function ProductoPage({
               </p>
             )}
 
-            {/* TODO: conectar con el Context del carrito */}
-            <button
-              disabled={sinStock}
-              className="w-full py-4 rounded-xl font-rajdhani font-bold text-base tracking-wider transition-opacity"
-              style={{
-                background: sinStock ? "#ccc" : "#111111",
-                color: "#fff",
-                cursor: sinStock ? "not-allowed" : "pointer",
-              }}
-            >
-              {sinStock ? "Agotado" : "Añadir al carrito"}
-            </button>
+            <BotonAgregarCarrito producto={producto} />
 
-            {/* Franja de confianza */}
             <div className="grid grid-cols-2 gap-4 mt-10 pt-8" style={{ borderTop: "1px solid rgba(0,0,0,.08)" }}>
               {INFO_ITEMS.map(({ icon: Icon, label, desc }) => (
                 <div key={label} className="flex items-start gap-2.5">
