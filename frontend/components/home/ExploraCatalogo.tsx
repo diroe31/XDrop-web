@@ -6,8 +6,16 @@ import { fetchProductos } from "@/lib/api";
 const ACCENT = "#c8973a";
 
 export default async function ExploraCatalogo() {
-  const data = await fetchProductos({ destacado: true });
-  const productos = data.results.slice(0, 4);
+  let productos: Awaited<ReturnType<typeof fetchProductos>>["results"] = [];
+  let pagina = 1;
+  let sigue = true;
+
+  while (sigue) {
+    const data = await fetchProductos({ destacado: true, page: pagina });
+    productos = productos.concat(data.results);
+    sigue = Boolean(data.next);
+    pagina += 1;
+  }
 
   if (productos.length === 0) {
     return (
@@ -47,7 +55,7 @@ export default async function ExploraCatalogo() {
         </Link>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-3 gap-6">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {productos.map((producto) => {
           const img = producto.imagenes[0]?.imagen;
           const sinStock = producto.stock === 0;
@@ -59,34 +67,34 @@ export default async function ExploraCatalogo() {
               className="group rounded-2xl overflow-hidden flex flex-col p-3 transition-transform duration-300 hover:-translate-y-1.5"
               style={{ background: "#1a1a1a", border: "1px solid rgba(255,255,255,.06)" }}
             >
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden" style={{ background: "#f0efe9" }}>
+              <div className="relative aspect-square rounded-xl overflow-hidden" style={{ background: "#f0efe9" }}>
                 {img && (
                   <Image
                     src={img}
                     alt={producto.nombre}
                     fill
-                    sizes="(max-width: 768px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 )}
 
                 <div
-                  className="absolute top-3 left-3 px-3 py-1.5 rounded-md font-space-mono text-[10px] font-bold uppercase tracking-widest"
+                  className="absolute top-3 left-3 px-2.5 py-1 rounded-md font-space-mono text-[9px] font-bold uppercase tracking-widest"
                   style={{ background: ACCENT, color: "#fff" }}
                 >
                   {producto.coleccion_nombre}
                 </div>
 
                 <div
-                  className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center"
+                  className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center"
                   style={{ background: "rgba(255,255,255,.9)" }}
                 >
-                  <Heart size={16} color="#111111" />
+                  <Heart size={14} color="#111111" />
                 </div>
 
                 {sinStock && (
                   <div
-                    className="absolute bottom-3 left-3 px-3 py-1.5 rounded-md font-space-mono text-[10px] uppercase tracking-widest"
+                    className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md font-space-mono text-[9px] uppercase tracking-widest"
                     style={{ background: "#111111", color: "#fff" }}
                   >
                     Agotado
@@ -96,12 +104,12 @@ export default async function ExploraCatalogo() {
 
               <div className="flex flex-col items-center text-center gap-1.5 pt-4 pb-2">
                 <p
-                  className="leading-snug text-white text-base"
+                  className="leading-snug text-white text-sm"
                   style={{ fontFamily: "'Raleway', sans-serif", fontWeight: 700 }}
                 >
                   {producto.nombre}
                 </p>
-                <p className="font-orbitron font-bold text-xl" style={{ color: ACCENT }}>
+                <p className="font-orbitron font-bold text-lg" style={{ color: ACCENT }}>
                   S/{producto.precio}
                 </p>
               </div>
