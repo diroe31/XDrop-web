@@ -10,10 +10,10 @@ import ProductoCard from "@/components/producto/ProductoCard";
 const ACCENT = "#c8973a";
 
 const ICONOS: Record<string, string> = {
-  "resident evil": "🧟",
-  "counter strike": "🔫",
+  "resident evil": "☣️",
+  "counter strike": "🎯",
   "minecraft": "⛏️",
-  "god of war": "⚔️",
+  "god of war": "🪓",
   "backrooms": "🌀",
 };
 
@@ -36,18 +36,16 @@ export default function CatalogoGeneralFiltros({
 
   return (
     <div>
-      <div
-        className="sticky top-14 z-30 py-4"
-        style={{ background: "#f5f4f0", borderBottom: "1px solid rgba(0,0,0,.06)" }}
-      >
+      {/* Filtros con borde dorado */}
+      <div className="sticky top-14 z-30 py-5" style={{ background: "#111111" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto">
           <button
             onClick={() => setFiltro(null)}
             className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
             style={{
-              background: filtro === null ? "#111111" : "#ffffff",
-              color: filtro === null ? "#fff" : "#111111",
-              border: "1px solid rgba(0,0,0,.1)",
+              background: filtro === null ? "rgba(200,151,58,.12)" : "transparent",
+              color: filtro === null ? ACCENT : "rgba(255,255,255,.6)",
+              border: filtro === null ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,.15)",
             }}
           >
             <span>✦</span> Todas
@@ -58,9 +56,9 @@ export default function CatalogoGeneralFiltros({
               onClick={() => setFiltro(c.id)}
               className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
               style={{
-                background: filtro === c.id ? "#111111" : "#ffffff",
-                color: filtro === c.id ? "#fff" : "#111111",
-                border: "1px solid rgba(0,0,0,.1)",
+                background: filtro === c.id ? "rgba(200,151,58,.12)" : "transparent",
+                color: filtro === c.id ? ACCENT : "rgba(255,255,255,.6)",
+                border: filtro === c.id ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,.15)",
               }}
             >
               <span>{iconoDe(c.nombre)}</span> {c.nombre}
@@ -69,7 +67,8 @@ export default function CatalogoGeneralFiltros({
         </div>
       </div>
 
-      <div className="py-10 space-y-14">
+      {/* Secciones, cada una envuelta en su propia caja */}
+      <div className="pb-16 pt-2 space-y-6">
         {coleccionesAMostrar.map((c) => {
           const todosDeEstaColeccion = productosPorColeccion[c.id] || [];
           const productos = todosDeEstaColeccion.slice(0, 3);
@@ -79,61 +78,68 @@ export default function CatalogoGeneralFiltros({
 
           return (
             <div key={c.id} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative rounded-2xl overflow-hidden mb-5" style={{ height: 96 }}>
-                {c.imagen_portada && (
-                  <Image
-                    src={c.imagen_portada}
-                    alt={c.nombre}
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                    style={{ opacity: 0.35 }}
+              <div
+                className="rounded-3xl overflow-hidden"
+                style={{ background: "#1a1a1a", border: "1px solid rgba(255,255,255,.08)" }}
+              >
+                {/* Encabezado de la caja */}
+                <div className="relative" style={{ height: 90 }}>
+                  {c.imagen_portada && (
+                    <Image
+                      src={c.imagen_portada}
+                      alt={c.nombre}
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                      style={{ opacity: 1.9 }}
+                    />
+                  )}
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to right, rgba(26,26,26,.95), rgba(26,26,26,.7))" }}
                   />
-                )}
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(to right, rgba(17,17,17,.95), rgba(17,17,17,.55))" }}
-                />
-                <div className="absolute inset-0 flex items-center justify-between px-6">
-                  <div className="flex items-center gap-3">
-                    <span style={{ fontSize: 24 }}>{iconoDe(c.nombre)}</span>
-                    <h2 className="font-orbitron font-black text-white text-lg md:text-xl">
-                      {c.nombre.toUpperCase()}
-                    </h2>
-                  </div>
-                  <Link
-                    href={`/catalogo/${c.slug}`}
-                    className="flex items-center gap-1.5 font-rajdhani font-bold text-xs tracking-wider flex-shrink-0"
-                    style={{ color: ACCENT }}
-                  >
-                    VER TODO <ArrowRight size={13} />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {productos.map((p) => (
-                  <ProductoCard key={p.id} producto={p} />
-                ))}
-
-                {restantes > 0 && (
-                  <Link
-                    href={`/catalogo/${c.slug}`}
-                    className="rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:opacity-80"
-                    style={{ background: "#111111", minHeight: 200 }}
-                  >
-                    <div
-                      className="w-11 h-11 rounded-full flex items-center justify-center"
-                      style={{ background: "rgba(200,151,58,.15)" }}
-                    >
-                      <ArrowRight size={18} color={ACCENT} />
+                  <div className="absolute inset-0 flex items-center justify-between px-6">
+                    <div className="flex items-center gap-3">
+                      <span style={{ fontSize: 22 }}>{iconoDe(c.nombre)}</span>
+                      <h2 className="font-orbitron font-black text-white text-base md:text-lg tracking-wide">
+                        {c.nombre.toUpperCase()}
+                      </h2>
                     </div>
-                    <p className="font-rajdhani font-bold text-sm text-white">Ver más</p>
-                    <p className="font-space-mono text-[10px]" style={{ color: "rgba(255,255,255,.4)" }}>
-                      +{restantes} producto{restantes !== 1 ? "s" : ""}
-                    </p>
-                  </Link>
-                )}
+                    <Link
+                      href={`/catalogo/${c.slug}`}
+                      className="flex items-center gap-1.5 font-rajdhani font-bold text-xs tracking-wider flex-shrink-0"
+                      style={{ color: ACCENT }}
+                    >
+                      VER TODO <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Productos dentro de la caja */}
+                <div className="p-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {productos.map((p) => (
+                    <ProductoCard key={p.id} producto={p} oscuro />
+                  ))}
+
+                  {restantes > 0 && (
+                    <Link
+                      href={`/catalogo/${c.slug}`}
+                      className="rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:opacity-80"
+                      style={{ background: "#111111", border: "1px solid rgba(255,255,255,.08)", minHeight: 200 }}
+                    >
+                      <div
+                        className="w-11 h-11 rounded-full flex items-center justify-center"
+                        style={{ background: "rgba(200,151,58,.15)" }}
+                      >
+                        <ArrowRight size={18} color={ACCENT} />
+                      </div>
+                      <p className="font-rajdhani font-bold text-sm text-white">Ver más</p>
+                      <p className="font-space-mono text-[10px]" style={{ color: "rgba(255,255,255,.4)" }}>
+                        +{restantes} producto{restantes !== 1 ? "s" : ""}
+                      </p>
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           );
