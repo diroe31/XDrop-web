@@ -35,6 +35,7 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const guardado = localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- lectura unica de localStorage al montar, es el patron correcto aqui
       if (guardado) setItems(JSON.parse(guardado));
     } catch {
       // si algo sale mal leyendo, empezamos con carrito vacio
