@@ -19,16 +19,39 @@ export default function CatalogoFiltros({
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    setCargando(true);
-    fetchProductos({
-      coleccionId,
-      categoriaId: categoriaActiva || undefined,
-    })
-      .then((data) => {
-        setProductos(data.results);
-        setTotal(data.count);
-      })
-      .finally(() => setCargando(false));
+    let cancelado = false;
+
+    async function cargarTodo() {
+      setCargando(true);
+      let acumulado: Producto[] = [];
+      let pagina = 1;
+      let sigue = true;
+      let totalCount = 0;
+
+      while (sigue && !cancelado) {
+        const data = await fetchProductos({
+          coleccionId,
+          categoriaId: categoriaActiva || undefined,
+          page: pagina,
+        });
+        acumulado = acumulado.concat(data.results);
+        totalCount = data.count;
+        sigue = Boolean(data.next);
+        pagina += 1;
+
+        if (!cancelado) {
+          setProductos([...acumulado]);
+          setTotal(totalCount);
+        }
+      }
+
+      if (!cancelado) setCargando(false);
+    }
+
+    cargarTodo();
+    return () => {
+      cancelado = true;
+    };
   }, [coleccionId, categoriaActiva]);
 
   return (
@@ -75,7 +98,7 @@ export default function CatalogoFiltros({
           </p>
         )}
 
-        {cargando ? (
+        {cargando && productos.length === 0 ? (
           <p className="font-inter text-sm opacity-50 text-center py-16">Cargando...</p>
         ) : productos.length === 0 ? (
           <div className="text-center py-20">
