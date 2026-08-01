@@ -3,22 +3,31 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Biohazard,
+  Crosshair,
+  Blocks,
+  Axe,
+  Ghost,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { Coleccion, Producto } from "@/lib/api";
 import ProductoCard from "@/components/producto/ProductoCard";
 
 const ACCENT = "#c8973a";
 
-const ICONOS: Record<string, string> = {
-  "resident evil": "☣️",
-  "counter strike": "🎯",
-  "minecraft": "⛏️",
-  "god of war": "🪓",
-  "backrooms": "🌀",
+const ICONOS: Record<string, LucideIcon> = {
+  "resident evil": Biohazard,
+  "counter strike": Crosshair,
+  "minecraft": Blocks,
+  "god of war": Axe,
+  "backrooms": Ghost,
 };
 
-function iconoDe(nombre: string) {
-  return ICONOS[nombre.toLowerCase()] || "✦";
+function iconoDe(nombre: string): LucideIcon {
+  return ICONOS[nombre.toLowerCase()] || Sparkles;
 }
 
 export default function CatalogoGeneralFiltros({
@@ -48,22 +57,26 @@ export default function CatalogoGeneralFiltros({
               border: filtro === null ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,.15)",
             }}
           >
-            <span>✦</span> Todas
+            <Sparkles size={14} /> Todas
           </button>
-          {colecciones.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setFiltro(c.id)}
-              className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
-              style={{
-                background: filtro === c.id ? "rgba(200,151,58,.12)" : "transparent",
-                color: filtro === c.id ? ACCENT : "rgba(255,255,255,.6)",
-                border: filtro === c.id ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,.15)",
-              }}
-            >
-              <span>{iconoDe(c.nombre)}</span> {c.nombre}
-            </button>
-          ))}
+          {colecciones.map((c) => {
+            const Icono = iconoDe(c.nombre);
+            const activa = filtro === c.id;
+            return (
+              <button
+                key={c.id}
+                onClick={() => setFiltro(c.id)}
+                className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full font-rajdhani font-bold text-sm tracking-wide transition-all"
+                style={{
+                  background: activa ? "rgba(200,151,58,.12)" : "transparent",
+                  color: activa ? ACCENT : "rgba(255,255,255,.6)",
+                  border: activa ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,.15)",
+                }}
+              >
+                <Icono size={14} /> {c.nombre}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -73,6 +86,7 @@ export default function CatalogoGeneralFiltros({
           const todosDeEstaColeccion = productosPorColeccion[c.id] || [];
           const productos = todosDeEstaColeccion.slice(0, 3);
           const restantes = todosDeEstaColeccion.length - productos.length;
+          const Icono = iconoDe(c.nombre);
 
           if (productos.length === 0) return null;
 
@@ -82,7 +96,6 @@ export default function CatalogoGeneralFiltros({
                 className="rounded-3xl overflow-hidden"
                 style={{ background: "#1a1a1a", border: "1px solid rgba(255,255,255,.08)" }}
               >
-                {/* Encabezado de la caja */}
                 <div className="relative" style={{ height: 90 }}>
                   {c.imagen_portada && (
                     <Image
@@ -91,7 +104,7 @@ export default function CatalogoGeneralFiltros({
                       fill
                       sizes="100vw"
                       className="object-cover"
-                      style={{ opacity: 1.9 }}
+                      style={{ opacity: 0.3 }}
                     />
                   )}
                   <div
@@ -100,7 +113,7 @@ export default function CatalogoGeneralFiltros({
                   />
                   <div className="absolute inset-0 flex items-center justify-between px-6">
                     <div className="flex items-center gap-3">
-                      <span style={{ fontSize: 22 }}>{iconoDe(c.nombre)}</span>
+                      <Icono size={22} color={ACCENT} />
                       <h2 className="font-orbitron font-black text-white text-base md:text-lg tracking-wide">
                         {c.nombre.toUpperCase()}
                       </h2>
@@ -115,7 +128,6 @@ export default function CatalogoGeneralFiltros({
                   </div>
                 </div>
 
-                {/* Productos dentro de la caja */}
                 <div className="p-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {productos.map((p) => (
                     <ProductoCard key={p.id} producto={p} oscuro />
