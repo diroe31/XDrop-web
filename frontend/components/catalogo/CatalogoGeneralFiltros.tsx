@@ -87,6 +87,7 @@ export default function CatalogoGeneralFiltros({
           const productos = todosDeEstaColeccion.slice(0, 3);
           const restantes = todosDeEstaColeccion.length - productos.length;
           const Icono = iconoDe(c.nombre);
+          const imagenExtra = todosDeEstaColeccion[3]?.imagenes[0]?.imagen;
 
           if (productos.length === 0) return null;
 
@@ -136,19 +137,34 @@ export default function CatalogoGeneralFiltros({
                   {restantes > 0 && (
                     <Link
                       href={`/catalogo/${c.slug}`}
-                      className="rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:opacity-80"
-                      style={{ background: "#111111", border: "1px solid rgba(255,255,255,.08)", minHeight: 200 }}
+                      className="relative rounded-2xl overflow-hidden flex flex-col items-center justify-center gap-2 transition-all hover:opacity-90"
+                      style={{ minHeight: 200, border: "1px solid rgba(255,255,255,.08)" }}
                     >
-                      <div
-                        className="w-11 h-11 rounded-full flex items-center justify-center"
-                        style={{ background: "rgba(200,151,58,.15)" }}
-                      >
-                        <ArrowRight size={18} color={ACCENT} />
+                      {imagenExtra ? (
+                        <Image
+                          src={imagenExtra}
+                          alt=""
+                          fill
+                          sizes="20vw"
+                          className="object-cover"
+                          style={{ filter: "blur(6px) brightness(0.5)" }}
+                        />
+                      ) : (
+                        <div className="absolute inset-0" style={{ background: "#111111" }} />
+                      )}
+
+                      <div className="relative z-10 flex flex-col items-center gap-2">
+                        <div
+                          className="w-11 h-11 rounded-full flex items-center justify-center"
+                          style={{ background: "rgba(255,255,255,.92)" }}
+                        >
+                          <ArrowRight size={18} color={ACCENT} />
+                        </div>
+                        <p className="font-rajdhani font-bold text-sm text-white">Ver más</p>
+                        <p className="font-space-mono text-[10px] text-white opacity-70">
+                          +{restantes} producto{restantes !== 1 ? "s" : ""}
+                        </p>
                       </div>
-                      <p className="font-rajdhani font-bold text-sm text-white">Ver más</p>
-                      <p className="font-space-mono text-[10px]" style={{ color: "rgba(255,255,255,.4)" }}>
-                        +{restantes} producto{restantes !== 1 ? "s" : ""}
-                      </p>
                     </Link>
                   )}
                 </div>
