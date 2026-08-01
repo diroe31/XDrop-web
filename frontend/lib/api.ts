@@ -11,6 +11,14 @@ export interface ProductoImagen {
   orden: number;
 }
 
+export interface VarianteProducto {
+  id: number;
+  nombre: string;
+  imagen: string;
+  stock: number;
+  orden: number;
+}
+
 export interface Producto {
   id: number;
   nombre: string;
@@ -22,6 +30,7 @@ export interface Producto {
   categoria_nombre: string;
   coleccion_nombre: string;
   imagenes: ProductoImagen[];
+  variantes: VarianteProducto[];
 }
 
 export interface Categoria {

@@ -45,3 +45,16 @@ class ProductoImagen(models.Model):
 
     def __str__(self):
         return f"Imagen de {self.producto.nombre}"
+
+class VarianteProducto(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='variantes')
+    nombre = models.CharField(max_length=150)        # Ej: "Entidad Sonriente", "Hombre sin rostro"
+    imagen = models.ImageField(upload_to='variantes/')
+    stock = models.PositiveIntegerField(default=0)
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden']
+
+    def __str__(self):
+        return f"{self.producto.nombre} - {self.nombre}"

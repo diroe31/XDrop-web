@@ -1,31 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ProductoImagen } from "@/lib/api";
+
+const ACCENT = "#c8973a";
 
 export default function ProductoGaleria({
   imagenes,
   nombre,
+  imagenVariante,
 }: {
   imagenes: ProductoImagen[];
   nombre: string;
+  imagenVariante?: string | null;
 }) {
   const [activa, setActiva] = useState(0);
-  const actual = imagenes[activa];
+
+  useEffect(() => {
+    if (imagenVariante) setActiva(-1);
+    else setActiva(0);
+  }, [imagenVariante]);
+
+  const imagenPrincipal = imagenVariante || imagenes[activa]?.imagen;
 
   return (
-    <div>
-      <div
-        className="relative rounded-2xl overflow-hidden mb-3"
-        style={{ aspectRatio: "1/1", background: "#f0efe9", border: "1px solid rgba(0,0,0,.07)" }}
+    <div className="flex gap-3">
+      <div className="flex flex-col gap-2 flex-shrink-0" style={{ width: 64 }}>
+        {imagenes.map((img, i) => {
+          const activaEsta = activa === i && !imagenVariante;
+          return (
+            <button
+              key={img.id}
+              onClick={() => setActiva(i)}
+              className="relative rounded-lg overflow-hidden transition-all"
+              style={{
+                width: 64,
+                height: 64,
+                border: activaEsta ? "2px solid " + ACCENT : "1px solid rgba(0,0,0,.12)",
+                opacity: activaEsta ? 1 : 0.65,
+              }}
+            >
+              <Image src={img.imagen} alt={nombre + " " + (i + 1)} fill sizes="64px" className="object-cover" />
+            </button>
+          );
+        })}
+      </div>
+
+       <div
+        className="relative rounded-2xl overflow-hidden flex-1"
+        style={{ aspectRatio: "1/1", background: "#f0efe9", border: "1px solid rgba(0,0,0,.07)", width: "100%", minWidth: 0 }}
       >
-        {actual ? (
+        {imagenPrincipal ? (
           <Image
-            src={actual.imagen}
+            src={imagenPrincipal}
             alt={nombre}
             fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            sizes="(max-width: 1024px) 100vw, 45vw"
             className="object-cover"
             priority
           />
@@ -35,26 +66,6 @@ export default function ProductoGaleria({
           </div>
         )}
       </div>
-
-      {imagenes.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto">
-          {imagenes.map((img, i) => (
-            <button
-              key={img.id}
-              onClick={() => setActiva(i)}
-              className="relative flex-shrink-0 rounded-xl overflow-hidden transition-all"
-              style={{
-                width: 72,
-                height: 72,
-                border: i === activa ? "2px solid #c8973a" : "1px solid rgba(0,0,0,.1)",
-                opacity: i === activa ? 1 : 0.6,
-              }}
-            >
-              <Image src={img.imagen} alt={`${nombre} ${i + 1}`} fill sizes="72px" className="object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

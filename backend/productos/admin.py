@@ -1,12 +1,18 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Coleccion, Categoria, Producto, ProductoImagen
+from .models import Coleccion, Categoria, Producto, ProductoImagen, VarianteProducto
 
 
 class ProductoImagenInline(admin.TabularInline):
     model = ProductoImagen
     extra = 1
     fields = ('imagen', 'orden')
+
+
+class VarianteProductoInline(admin.TabularInline):
+    model = VarianteProducto
+    extra = 1
+    fields = ('nombre', 'imagen', 'stock', 'orden')
 
 
 @admin.register(Coleccion)
@@ -33,7 +39,7 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ('miniatura', 'nombre', 'categoria', 'precio', 'stock', 'destacado', 'activo')
     list_filter = ('categoria__coleccion', 'categoria', 'destacado', 'activo')
     prepopulated_fields = {'slug': ('nombre',)}
-    inlines = [ProductoImagenInline]
+    inlines = [ProductoImagenInline, VarianteProductoInline]
 
     def miniatura(self, obj):
         primera = obj.imagenes.first()
