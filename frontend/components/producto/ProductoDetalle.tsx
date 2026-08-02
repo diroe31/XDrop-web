@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shield, Truck, RefreshCw, Award } from "lucide-react";
+import { Shield, Truck, RefreshCw, Award, ShieldCheck } from "lucide-react";
 import { Producto, VarianteProducto } from "@/lib/api";
 import ProductoGaleria from "./ProductoGaleria";
 import VarianteSelector from "./VarianteSelector";
@@ -87,6 +87,13 @@ export default function ProductoDetalle({ producto }: { producto: Producto }) {
         )}
 
         <BotonAgregarCarrito producto={productoParaCarrito} />
+
+        <div className="flex items-center justify-center gap-1.5 mt-3">
+          <ShieldCheck size={13} style={{ color: "#999" }} />
+          <span className="font-inter text-[11px]" style={{ color: "#999" }}>
+            Compra segura y protegida
+          </span>
+        </div>
 
         <div className="grid grid-cols-2 gap-4 mt-10 pt-8" style={{ borderTop: "1px solid rgba(0,0,0,.08)" }}>
           {INFO_ITEMS.map(({ icon: Icon, label, desc }) => (

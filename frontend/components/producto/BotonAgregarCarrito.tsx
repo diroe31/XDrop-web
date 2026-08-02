@@ -32,7 +32,7 @@ export default function BotonAgregarCarrito({ producto }: { producto: Producto }
   return (
     <div>
       <div className="flex items-center gap-3 mb-3">
-        <span className="font-rajdhani font-bold text-sm" style={{ color: "#111111" }}>
+        <span className="font-rajdhani font-bold text-sm" style={{ color: "#c8973a" }}>
           Cantidad
         </span>
         <div

@@ -47,24 +47,36 @@ export default function ProductoGaleria({
         })}
       </div>
 
-       <div
-        className="relative rounded-2xl overflow-hidden flex-1"
-        style={{ aspectRatio: "1/1", background: "#f0efe9", border: "1px solid rgba(0,0,0,.07)", width: "100%", minWidth: 0 }}
-      >
-        {imagenPrincipal ? (
-          <Image
-            src={imagenPrincipal}
-            alt={nombre}
-            fill
-            sizes="(max-width: 1024px) 100vw, 45vw"
-            className="object-cover"
-            priority
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center opacity-30">
-            <span className="font-orbitron text-sm">Sin imagen</span>
+      <div style={{ flex: "1 1 0%", minWidth: 0 }}>
+        <div style={{ position: "relative", width: "100%", paddingTop: "100%" }}>
+          <div
+            className="rounded-2xl overflow-hidden"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "#f0efe9",
+              border: "1px solid rgba(0,0,0,.07)",
+            }}
+          >
+            {imagenPrincipal ? (
+              <Image
+                src={imagenPrincipal}
+                alt={nombre}
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                <span className="font-orbitron text-sm">Sin imagen</span>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
