@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { Producto } from "@/lib/api";
 
 const ACCENT = "#c8973a";
@@ -49,14 +48,24 @@ export default function ProductoCard({
         )}
 
         <div
-          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: "rgba(0,0,0,.25)" }}
+          className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)",
+            paddingTop: "2.5rem",
+          }}
         >
-          <div
-            className="w-11 h-11 rounded-full flex items-center justify-center"
-            style={{ background: "#fff" }}
-          >
-            <ArrowUpRight size={18} color="#111111" />
+          <div className="flex items-center justify-between px-4 pb-3">
+            <span className="font-rajdhani font-bold text-xs tracking-wider text-white">
+              Ver producto
+            </span>
+            <span
+              className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ background: ACCENT }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5">
+                <path d="M7 17L17 7M17 7H8M17 7V16" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </div>
         </div>
       </div>
