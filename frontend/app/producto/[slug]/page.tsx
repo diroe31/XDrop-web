@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
-import { fetchProductoPorSlug, fetchProductos } from "@/lib/api";
+import { fetchProductoPorSlug, fetchProductos, fetchColecciones } from "@/lib/api";
 import ProductoDetalle from "@/components/producto/ProductoDetalle";
 import ProductoCard from "@/components/producto/ProductoCard";
 
@@ -13,10 +13,42 @@ export default async function ProductoPage({
   const { slug } = await params;
   const producto = await fetchProductoPorSlug(slug);
 
-  const relacionadosData = await fetchProductos({ categoriaId: producto.categoria });
-  const relacionados = relacionadosData.results
-    .filter((p) => p.slug !== producto.slug)
-    .slice(0, 4);
+  async function traerRelacionados() {
+    type ProductoLista = Awaited<ReturnType<typeof fetchProductos>>["results"][number];
+    const excluirActual = (p: ProductoLista) => p.slug !== producto.slug;
+
+    // 1. Primero, misma categoria (mas relevante)
+    const deCategoria = await fetchProductos({ categoriaId: producto.categoria });
+    let lista = deCategoria.results.filter(excluirActual);
+
+    // 2. Si falta, rellenar con la misma coleccion (otras categorias)
+    if (lista.length < 8) {
+      const yaIncluidos = new Set(lista.map((p) => p.id));
+      const dataColecciones = await fetchColecciones();
+      const coleccion = dataColecciones.results.find((c) => c.nombre === producto.coleccion_nombre);
+      if (coleccion) {
+        const deColeccion = await fetchProductos({ coleccionId: coleccion.id });
+        const extra = deColeccion.results.filter(
+          (p) => excluirActual(p) && !yaIncluidos.has(p.id)
+        );
+        lista = lista.concat(extra);
+      }
+    }
+
+    // 3. Si aun falta, rellenar con cualquier producto del catalogo
+    if (lista.length < 8) {
+      const yaIncluidos = new Set(lista.map((p) => p.id));
+      const deTodos = await fetchProductos({});
+      const extra = deTodos.results.filter(
+        (p) => excluirActual(p) && !yaIncluidos.has(p.id)
+      );
+      lista = lista.concat(extra);
+    }
+
+    return lista.slice(0, 8);
+  }
+
+  const relacionados = await traerRelacionados();
 
   const imagenesDetalle = producto.imagenes
     .filter((img) => img.tipo === "detalle")
@@ -24,7 +56,7 @@ export default async function ProductoPage({
 
   return (
     <div className="min-h-screen" style={{ background: "#f5f4f0" }}>
-  <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex items-center gap-1.5 mb-8 font-space-mono text-[11px] uppercase tracking-wider" style={{ color: "#999" }}>
           <Link href="/catalogo" className="hover:underline">Catálogo</Link>
           <ChevronRight size={11} />
@@ -65,7 +97,7 @@ export default async function ProductoPage({
             <h2 className="font-orbitron font-bold text-lg mb-5" style={{ color: "#111111" }}>
               También te puede interesar
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {relacionados.map((p) => (
                 <ProductoCard key={p.id} producto={p} />
               ))}

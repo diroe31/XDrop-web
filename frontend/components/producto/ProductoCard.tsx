@@ -11,7 +11,10 @@ export default function ProductoCard({
   producto: Producto;
   oscuro?: boolean;
 }) {
-  const img = producto.imagenes[0]?.imagen;
+  const imagenesGaleria = producto.imagenes
+    .filter((i) => i.tipo === "galeria")
+    .sort((a, b) => a.orden - b.orden);
+  const img = imagenesGaleria[0]?.imagen;
   const sinStock = producto.stock === 0;
 
   return (
