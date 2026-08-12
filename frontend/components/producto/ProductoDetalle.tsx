@@ -29,10 +29,12 @@ export default function ProductoDetalle({ producto }: { producto: Producto }) {
       }
     : producto;
 
+  const imagenesGaleria = producto.imagenes.filter((img) => img.tipo === "galeria");
+
   return (
     <div className="grid lg:grid-cols-2 gap-12">
       <ProductoGaleria
-        imagenes={producto.imagenes}
+        imagenes={imagenesGaleria}
         nombre={producto.nombre}
         imagenVariante={varianteSeleccionada?.imagen}
       />

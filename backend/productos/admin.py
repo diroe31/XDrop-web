@@ -6,7 +6,7 @@ from .models import Coleccion, Categoria, Producto, ProductoImagen, VarianteProd
 class ProductoImagenInline(admin.TabularInline):
     model = ProductoImagen
     extra = 1
-    fields = ('imagen', 'orden')
+    fields = ('imagen', 'orden', 'tipo')
 
 
 class VarianteProductoInline(admin.TabularInline):

@@ -39,13 +39,18 @@ class Producto(models.Model):
 
 
 class ProductoImagen(models.Model):
+    TIPO_CHOICES = [
+        ('galeria', 'Galería (fotos principales)'),
+        ('detalle', 'Detalle (sección de abajo)'),
+    ]
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='imagenes')
     imagen = models.ImageField(upload_to='productos/')
     orden = models.PositiveIntegerField(default=0)
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='galeria')
 
     def __str__(self):
         return f"Imagen de {self.producto.nombre}"
-
+        
 class VarianteProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='variantes')
     nombre = models.CharField(max_length=150)        # Ej: "Entidad Sonriente", "Hombre sin rostro"

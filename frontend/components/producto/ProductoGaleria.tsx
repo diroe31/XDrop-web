@@ -16,11 +16,19 @@ export default function ProductoGaleria({
   imagenVariante?: string | null;
 }) {
   const [activa, setActiva] = useState(0);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     if (imagenVariante) setActiva(-1);
     else setActiva(0);
+    setKey((k) => k + 1);
   }, [imagenVariante]);
+
+  function cambiarA(i: number) {
+    if (i === activa) return;
+    setActiva(i);
+    setKey((k) => k + 1);
+  }
 
   const imagenPrincipal = imagenVariante || imagenes[activa]?.imagen;
 
@@ -32,7 +40,7 @@ export default function ProductoGaleria({
           return (
             <button
               key={img.id}
-              onClick={() => setActiva(i)}
+              onClick={() => cambiarA(i)}
               className="relative rounded-lg overflow-hidden transition-all"
               style={{
                 width: 64,
@@ -62,14 +70,23 @@ export default function ProductoGaleria({
             }}
           >
             {imagenPrincipal ? (
-              <Image
-                src={imagenPrincipal}
-                alt={nombre}
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-                priority
-              />
+              <div
+                key={key}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  animation: "xdrop-slide 0.3s ease-out",
+                }}
+              >
+                <Image
+                  src={imagenPrincipal}
+                  alt={nombre}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center opacity-30">
                 <span className="font-orbitron text-sm">Sin imagen</span>
@@ -78,6 +95,19 @@ export default function ProductoGaleria({
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes xdrop-slide {
+          from {
+            transform: translateX(24px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
