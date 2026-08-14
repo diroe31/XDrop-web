@@ -81,8 +81,14 @@ export default function ProductoCard({
           {producto.categoria_nombre}
         </p>
         <p
-          className="font-rajdhani font-bold text-sm leading-snug flex-1"
-          style={{ color: oscuro ? "#ffffff" : "#111111" }}
+          className="leading-snug flex-1"
+          style={{
+            color: oscuro ? "#ffffff" : "#111111",
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 700,
+            fontSize: "0.95rem",
+            letterSpacing: "0.01em",
+          }}
         >
           {producto.nombre}
         </p>

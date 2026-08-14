@@ -18,6 +18,8 @@ export default function ProductoGaleria({
   const [activa, setActiva] = useState(0);
   const [key, setKey] = useState(0);
 
+  const imagenesOrdenadas = [...imagenes].sort((a, b) => a.orden - b.orden);
+
   useEffect(() => {
     if (imagenVariante) setActiva(-1);
     else setActiva(0);
@@ -30,12 +32,12 @@ export default function ProductoGaleria({
     setKey((k) => k + 1);
   }
 
-  const imagenPrincipal = imagenVariante || imagenes[activa]?.imagen;
+  const imagenPrincipal = imagenVariante || imagenesOrdenadas[activa]?.imagen;
 
   return (
     <div className="flex gap-3">
       <div className="flex flex-col gap-2 flex-shrink-0" style={{ width: 64 }}>
-        {imagenes.map((img, i) => {
+        {imagenesOrdenadas.map((img, i) => {
           const activaEsta = activa === i && !imagenVariante;
           return (
             <button
